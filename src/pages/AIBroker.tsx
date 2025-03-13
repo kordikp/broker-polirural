@@ -91,6 +91,17 @@ interface Message {
   timestamp: Date;
 }
 
+interface AutomatedConversation {
+  id: string;
+  contactId: string;
+  contactName: string;
+  messages: { sender: "ai" | "contact"; content: string; timestamp: Date; }[];
+  status: "active" | "completed" | "pending";
+  lastActivity: Date;
+  needsAttention?: boolean;
+  attentionReason?: string;
+}
+
 const AIBroker: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -126,14 +137,12 @@ const AIBroker: React.FC = () => {
   const [emailMessage, setEmailMessage] = useState('');
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [emailResult, setEmailResult] = useState<EmailCampaignResult | null>(null);
-  const [automatedConversations, setAutomatedConversations] = useState<Array<{
-    contactId: string;
-    contactName: string;
-    messages: Array<{ sender: 'ai' | 'contact'; content: string; timestamp: Date }>;
-    status: 'active' | 'completed' | 'pending';
-  }>>([]);
+  const [automatedConversations, setAutomatedConversations] = useState<AutomatedConversation[]>([]);
   const [showConversationDetails, setShowConversationDetails] = useState<string | null>(null);
   const [followUpMessage, setFollowUpMessage] = useState('');
+  const [enableAutoResponses, setEnableAutoResponses] = useState(false);
+  const [requireApproval, setRequireApproval] = useState(false);
+  const [pendingApprovalCount, setPendingApprovalCount] = useState(0);
 
   useEffect(() => {
     const loadPredictions = async () => {
@@ -313,6 +322,7 @@ const AIBroker: React.FC = () => {
         const newConversations = selectedContacts.map(contactId => {
           const contact = potentialContacts.find(c => c.id === contactId);
           return {
+            id: Date.now().toString(),
             contactId,
             contactName: contact?.name || 'Unknown Contact',
             messages: [
@@ -323,6 +333,7 @@ const AIBroker: React.FC = () => {
               }
             ],
             status: 'pending' as const,
+            lastActivity: new Date(),
           };
         });
         
@@ -347,7 +358,8 @@ const AIBroker: React.FC = () => {
                       content: generateContactResponse(contact, emailSubject),
                       timestamp: responseTime,
                     }
-                  ]
+                  ],
+                  lastActivity: responseTime,
                 };
               }
               return conv;
@@ -547,6 +559,46 @@ const AIBroker: React.FC = () => {
     }
   };
 
+  // Add handler functions for automated conversations
+  const handleApproveMessage = (conversationId: string) => {
+    setAutomatedConversations(prev => 
+      prev.map(conv => 
+        conv.id === conversationId 
+          ? { ...conv, status: 'active' as const } 
+          : conv
+      )
+    );
+    setPendingApprovalCount(prev => Math.max(0, prev - 1));
+    toast({
+      title: 'Message Approved',
+      description: 'The automated response has been approved and sent.',
+    });
+  };
+  
+  const handleRejectMessage = (conversationId: string) => {
+    setAutomatedConversations(prev => 
+      prev.map(conv => 
+        conv.id === conversationId 
+          ? { ...conv, status: 'active' as const, needsAttention: true, attentionReason: 'Response rejected, needs manual reply' } 
+          : conv
+      )
+    );
+    setPendingApprovalCount(prev => Math.max(0, prev - 1));
+    toast({
+      title: 'Message Rejected',
+      description: 'The automated response has been rejected. Please provide a manual response.',
+    });
+  };
+  
+  const handleViewConversation = (conversationId: string) => {
+    setShowConversationDetails(conversationId);
+    // You would typically show a modal or expand a section to display the conversation
+    toast({
+      title: 'Conversation Details',
+      description: 'Viewing conversation details is not implemented in this prototype.',
+    });
+  };
+
   if (isLoadingPredictions && activeTab === 'predictions') {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
@@ -656,8 +708,10 @@ const AIBroker: React.FC = () => {
               </CardHeader>
               <CardContent>
                 {isLoadingMap ? (
-                  <div className="h-[400px] flex items-center justify-center">
-                    <Loader2 className="h-8 w-8 animate-spin text-farm-green" />
+                  <div className="h-[400px] flex flex-col items-center justify-center bg-gray-50 rounded-md border border-gray-200">
+                    <Loader2 className="h-8 w-8 animate-spin text-farm-green mb-2" />
+                    <p className="text-sm text-farm-dark-gray">Loading map data from the Šumava region...</p>
+                    <p className="text-xs text-farm-dark-gray/70 mt-1">Displaying farms and buyers within 100km of Klatovy</p>
                   </div>
                 ) : (
                   <div className="h-[400px] rounded-md overflow-hidden border border-gray-200">
@@ -808,77 +862,42 @@ const AIBroker: React.FC = () => {
                 )}
                 <div className="mt-4 text-sm text-farm-dark-gray/70">
                   <h4 className="font-medium mb-2">Map Legend</h4>
-                  <div className="grid grid-cols-1 gap-y-3">
-                    <div className="bg-gray-50 p-2 rounded-md border border-gray-200">
-                      <p className="font-medium mb-2">Marker Types:</p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                        <div className="flex items-center">
-                          <div className="w-6 h-6 flex items-center justify-center bg-green-500 text-white rounded-full mr-2 text-xs">🌱</div>
-                          <span><strong>Farmers</strong> (Producers)</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-6 h-6 flex items-center justify-center bg-blue-500 text-white rounded-full mr-2 text-xs">🛒</div>
-                          <span><strong>Buyers</strong> (Customers)</span>
-                        </div>
-                      </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-green-500"></div>
+                      <span>Czech Farmers</span>
                     </div>
-                    
-                    <div className="bg-gray-50 p-2 rounded-md border border-gray-200">
-                      <p className="font-medium mb-2">Countries:</p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                        <div className="flex items-center">
-                          <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
-                          <span>Czech Republic (Farmers)</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
-                          <span>Czech Republic (Buyers)</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                          <span>Germany (Farmers)</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-3 h-3 rounded-full bg-violet-500 mr-2"></div>
-                          <span>Germany (Buyers)</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-3 h-3 rounded-full bg-orange-500 mr-2"></div>
-                          <span>Austria (Farmers)</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-3 h-3 rounded-full bg-pink-500 mr-2"></div>
-                          <span>Austria (Buyers)</span>
-                        </div>
-                        <div className="flex items-center col-span-2">
-                          <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                          <span>Klatovy (center point)</span>
-                        </div>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+                      <span>Czech Buyers</span>
                     </div>
-                    
-                    <div className="bg-gray-50 p-2 rounded-md border border-gray-200">
-                      <p className="font-medium mb-2">Activity Circles:</p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                        <div className="flex items-center">
-                          <div className="w-6 h-3 border-t-2 border-dashed border-green-500 mr-2"></div>
-                          <span>Farmer product range</span>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="w-6 h-3 border-t-2 border-dotted border-blue-500 mr-2"></div>
-                          <span>Buyer demand range</span>
-                        </div>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+                      <span>German Farmers</span>
                     </div>
-                    
-                    <div className="p-2 bg-gray-50 rounded-md border border-gray-200">
-                      <p className="text-xs font-medium mb-1">Šumava Region Highlights:</p>
-                      <ul className="text-xs list-disc pl-5 space-y-1">
-                        <li>Cross-border agricultural region spanning Czech Republic, Germany, and Austria</li>
-                        <li>Known for organic farming, sustainable forestry, and traditional food production</li>
-                        <li>Growing farm-to-table movement connecting local producers with buyers</li>
-                      </ul>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-violet-500"></div>
+                      <span>German Buyers</span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-orange-500"></div>
+                      <span>Austrian Farmers</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-pink-500"></div>
+                      <span>Austrian Buyers</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                      <span>Klatovy (center)</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-green-50 border border-green-100 rounded-md">
+                    <h5 className="font-medium text-green-800 mb-1">Šumava Region Highlights</h5>
+                    <p className="text-xs text-green-700">
+                      The Šumava region spans the Czech-German-Austrian border and is known for its sustainable agriculture and farm-to-table movement. This cross-border area features diverse farming operations including organic vegetables, dairy, forestry products, and traditional crafts.
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -1225,6 +1244,50 @@ const AIBroker: React.FC = () => {
                       className="min-h-[150px]"
                     />
                   </div>
+                  
+                  <div className="flex items-center space-x-2 mt-2">
+                    <input 
+                      type="checkbox" 
+                      id="enable-auto-responses" 
+                      className="rounded border-gray-300 text-farm-green focus:ring-farm-green"
+                      checked={enableAutoResponses}
+                      onChange={(e) => setEnableAutoResponses(e.target.checked)}
+                    />
+                    <Label htmlFor="enable-auto-responses" className="text-sm cursor-pointer">
+                      Enable AI-powered automated responses
+                    </Label>
+                  </div>
+                  
+                  {enableAutoResponses && (
+                    <div className="bg-blue-50 p-3 rounded-md border border-blue-100 text-sm">
+                      <div className="flex items-start">
+                        <Sparkles className="h-5 w-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" />
+                        <div>
+                          <p className="text-blue-800">
+                            The AI Email Agent will automatically:
+                          </p>
+                          <ul className="list-disc pl-5 mt-1 text-blue-700 text-xs space-y-1">
+                            <li>Handle initial responses from contacts</li>
+                            <li>Answer basic questions about your products</li>
+                            <li>Schedule follow-up communications</li>
+                            <li>Alert you when human intervention is needed</li>
+                          </ul>
+                          <div className="mt-2 flex items-center space-x-2">
+                            <input 
+                              type="checkbox" 
+                              id="require-approval" 
+                              className="rounded border-gray-300 text-farm-green focus:ring-farm-green"
+                              checked={requireApproval}
+                              onChange={(e) => setRequireApproval(e.target.checked)}
+                            />
+                            <Label htmlFor="require-approval" className="text-xs cursor-pointer">
+                              Require my approval before sending automated responses
+                            </Label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               
@@ -1250,6 +1313,120 @@ const AIBroker: React.FC = () => {
                     </div>
                   </div>
                 </div>
+              )}
+              
+              {/* Automated Conversations Section */}
+              {automatedConversations.length > 0 && (
+                <>
+                  <Separator />
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-medium">Automated Conversations</h3>
+                      <Badge variant="outline" className="bg-farm-green/10 text-farm-green border-farm-green/20">
+                        {automatedConversations.filter(c => c.status === 'active').length} Active
+                      </Badge>
+                    </div>
+                    
+                    <div className="space-y-3 max-h-80 overflow-y-auto p-1">
+                      {automatedConversations.map((conversation) => {
+                        const contact = potentialContacts.find(c => c.id === conversation.contactId);
+                        return (
+                          <div 
+                            key={conversation.id}
+                            className={`p-3 rounded-md border ${
+                              conversation.status === 'active' 
+                                ? 'border-blue-200 bg-blue-50' 
+                                : conversation.status === 'completed'
+                                ? 'border-green-200 bg-green-50'
+                                : conversation.status === 'pending'
+                                ? 'border-yellow-200 bg-yellow-50'
+                                : 'border-gray-200'
+                            }`}
+                          >
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <h4 className="font-medium">{contact?.name}</h4>
+                                <p className="text-sm text-farm-dark-gray/70">{contact?.email}</p>
+                                <p className="text-xs text-farm-dark-gray/70 mt-1">
+                                  Last activity: {new Date(conversation.lastActivity).toLocaleString()}
+                                </p>
+                                <div className="mt-2">
+                                  <Badge 
+                                    variant="outline" 
+                                    className={`text-xs ${
+                                      conversation.status === 'active' 
+                                        ? 'bg-blue-100 text-blue-800 border-blue-200' 
+                                        : conversation.status === 'completed'
+                                        ? 'bg-green-100 text-green-800 border-green-200'
+                                        : conversation.status === 'pending'
+                                        ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                                        : ''
+                                    }`}
+                                  >
+                                    {conversation.status === 'active' ? 'Active' : 
+                                     conversation.status === 'completed' ? 'Completed' : 
+                                     conversation.status === 'pending' ? 'Pending Approval' : 
+                                     conversation.status}
+                                  </Badge>
+                                </div>
+                              </div>
+                              
+                              <div className="flex space-x-1">
+                                {conversation.status === 'pending' && (
+                                  <>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm" 
+                                      className="text-green-600 border-green-200 hover:bg-green-50"
+                                      onClick={() => handleApproveMessage(conversation.id)}
+                                    >
+                                      Approve
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm" 
+                                      className="text-red-600 border-red-200 hover:bg-red-50"
+                                      onClick={() => handleRejectMessage(conversation.id)}
+                                    >
+                                      Reject
+                                    </Button>
+                                  </>
+                                )}
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={() => handleViewConversation(conversation.id)}
+                                >
+                                  View
+                                </Button>
+                              </div>
+                            </div>
+                            
+                            {conversation.needsAttention && (
+                              <div className="mt-2 p-2 bg-yellow-100 rounded-md text-xs text-yellow-800">
+                                <div className="flex items-center">
+                                  <AlertCircle className="h-4 w-4 mr-1" />
+                                  Needs your attention: {conversation.attentionReason}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    {pendingApprovalCount > 0 && (
+                      <Button 
+                        variant="outline" 
+                        className="w-full border-farm-green text-farm-green hover:bg-farm-green/10"
+                        onClick={handleApproveAllConversations}
+                      >
+                        Approve All Pending Responses ({pendingApprovalCount})
+                      </Button>
+                    )}
+                  </div>
+                </>
               )}
             </CardContent>
             <CardFooter>

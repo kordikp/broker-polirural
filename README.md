@@ -1,69 +1,60 @@
-# Welcome to your Lovable project
+# Farm2Market Broker Platform for PoliRural
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/dbc46056-ae10-452c-abd4-0b3bacd46ee4
+This project is a prototype of a digital broker platform designed to connect local farmers with potential buyers in rural areas, with a focus on the Czech Republic, Bavaria, and surrounding regions. The platform aims to support sustainable agriculture and strengthen local food systems.
 
-## How can I edit this code?
+## Key Features
 
-There are several ways of editing your application.
+- **AI Assistant**: Intelligent chat interface to help farmers and buyers navigate the platform
+- **Interactive Map**: Visualize local farms and buyers in the Šumava region (Czech Republic, Germany, Austria)
+- **Market Predictions**: AI-powered market trend analysis and price forecasting
+- **Smart Matching**: Automated matching of farmers with potential buyers based on products and needs
+- **Email Agent**: Automated email campaign management for connecting with potential partners
 
-**Use Lovable**
+## Technologies Used
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dbc46056-ae10-452c-abd4-0b3bacd46ee4) and start prompting.
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn-ui
+- Leaflet (for maps)
+- React Router
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Getting Started
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone https://github.com/kordikp/broker-polirural.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd broker-polirural
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This project is automatically deployed to GitHub Pages using GitHub Actions. Any changes pushed to the main branch will trigger a new deployment.
 
-**Use GitHub Codespaces**
+You can access the live demo at: https://kordikp.github.io/broker-polirural/
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+- `/src/components`: Reusable UI components
+- `/src/pages`: Main application pages
+- `/src/lib`: Utilities and mock data
+- `/src/hooks`: Custom React hooks
 
-This project is built with .
+## About PoliRural
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+PoliRural is an initiative focused on rural development and policy innovation across Europe. This broker platform prototype demonstrates how digital technologies can support rural economies and sustainable agriculture.
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/dbc46056-ae10-452c-abd4-0b3bacd46ee4) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+MIT
