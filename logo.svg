@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <!-- Roof/House element -->
+  <path d="M170 30 L220 30 L195 15 Z" fill="#3377BB" stroke="#3377BB" stroke-width="2"/>
+
+  <!-- Vertical line (right side of house) -->
+  <line x1="220" y1="30" x2="220" y2="70" stroke="#3377BB" stroke-width="2"/>
+
+  <!-- Text "Farm2Market" -->
+  <text x="20" y="70" font-family="Arial, sans-serif" font-size="28" fill="#2B4890">Farm2Market</text>
+</svg>
