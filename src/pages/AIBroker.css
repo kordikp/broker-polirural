@@ -1,0 +1,33 @@
+/* Custom tooltip styles for the map */
+.leaflet-tooltip {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  border: none;
+}
+
+/* Farmer tooltip style */
+.farmer-tooltip {
+  background-color: rgba(76, 175, 80, 0.9);
+  color: white;
+  border-left: 3px solid #2e7d32;
+}
+
+/* Buyer tooltip style */
+.buyer-tooltip {
+  background-color: rgba(33, 150, 243, 0.9);
+  color: white;
+  border-left: 3px solid #1565c0;
+}
+
+/* Make activity circles more visible */
+.farmer-activity-circle {
+  stroke-dasharray: 5, 5;
+  stroke-width: 2;
+}
+
+.buyer-activity-circle {
+  stroke-dasharray: 3, 3;
+  stroke-width: 2;
+} 
