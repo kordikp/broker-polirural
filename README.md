@@ -56,6 +56,13 @@ To ensure proper deployment to GitHub Pages, follow these steps:
 
 You can access the live demo at: https://kordikp.github.io/broker-polirural/
 
+## Latest Updates
+
+- Enhanced map loading experience with better visual indicators
+- Added automated email agent with conversation tracking
+- Improved cross-border visualization with country-specific markers
+- Fixed deployment issues with proper GitHub Actions configuration
+
 ## Project Structure
 
 - `/src/components`: Reusable UI components
