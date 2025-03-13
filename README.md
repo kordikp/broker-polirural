@@ -42,6 +42,18 @@ npm run dev
 
 This project is automatically deployed to GitHub Pages using GitHub Actions. Any changes pushed to the main branch will trigger a new deployment.
 
+### GitHub Pages Configuration
+
+To ensure proper deployment to GitHub Pages, follow these steps:
+
+1. Go to your GitHub repository settings
+2. Navigate to the "Pages" section in the sidebar
+3. Under "Build and deployment", set the source to "GitHub Actions"
+4. Make sure the GitHub Actions workflow has the necessary permissions:
+   - Go to Settings > Actions > General
+   - Under "Workflow permissions", select "Read and write permissions"
+   - Save the changes
+
 You can access the live demo at: https://kordikp.github.io/broker-polirural/
 
 ## Project Structure
