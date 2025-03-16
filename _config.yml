@@ -20,4 +20,6 @@ exclude:
   - .github/
   - dist/
   - src/
-  - public/ # exclude the existing public directory 
+
+# GitHub Pages settings
+github: [metadata] 
