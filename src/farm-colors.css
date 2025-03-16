@@ -1,0 +1,121 @@
+/* Farm Color Theme */
+:root {
+  --farm-green: #28514f;
+  --farm-brown: #8B5A2B;
+  --farm-beige: #F5F5DC;
+  --farm-dark-gray: #333333;
+  --farm-light: #f5f7f9;
+}
+
+/* Direct element styles to ensure proper background colors */
+section.bg-farm-green, 
+.bg-farm-green {
+  background-color: var(--farm-green) !important;
+  color: white !important;
+}
+
+footer.bg-farm-dark-gray, 
+.bg-farm-dark-gray {
+  background-color: var(--farm-dark-gray) !important;
+  color: white !important;
+}
+
+/* Main class overrides */
+.bg-farm-green {
+  background-color: var(--farm-green);
+}
+
+.bg-farm-brown {
+  background-color: var(--farm-brown);
+}
+
+.bg-farm-beige {
+  background-color: var(--farm-beige);
+}
+
+.bg-farm-dark-gray {
+  background-color: var(--farm-dark-gray);
+}
+
+.bg-farm-light {
+  background-color: var(--farm-light);
+}
+
+.text-farm-green {
+  color: var(--farm-green);
+}
+
+.text-farm-brown {
+  color: var(--farm-brown);
+}
+
+.text-farm-beige {
+  color: var(--farm-beige);
+}
+
+.text-farm-dark-gray {
+  color: var(--farm-dark-gray);
+}
+
+/* Hover states */
+.hover\:bg-farm-green:hover {
+  background-color: var(--farm-green);
+}
+
+.hover\:bg-farm-brown:hover {
+  background-color: var(--farm-brown);
+}
+
+.hover\:bg-farm-beige:hover {
+  background-color: var(--farm-beige);
+}
+
+.hover\:bg-farm-dark-gray:hover {
+  background-color: var(--farm-dark-gray);
+}
+
+.hover\:text-farm-green:hover {
+  color: var(--farm-green);
+}
+
+.hover\:text-farm-brown:hover {
+  color: var(--farm-brown);
+}
+
+.hover\:text-farm-beige:hover {
+  color: var(--farm-beige);
+}
+
+.hover\:text-farm-dark-gray:hover {
+  color: var(--farm-dark-gray);
+}
+
+/* Opacity variants */
+.bg-farm-green\/10 {
+  background-color: rgba(40, 81, 79, 0.1);
+}
+
+.bg-farm-brown\/10 {
+  background-color: rgba(139, 90, 43, 0.1);
+}
+
+.bg-farm-beige\/20 {
+  background-color: rgba(245, 245, 220, 0.2);
+}
+
+/* Border variants */
+.border-farm-green {
+  border-color: var(--farm-green);
+}
+
+.border-farm-brown {
+  border-color: var(--farm-brown);
+}
+
+.border-farm-beige {
+  border-color: var(--farm-beige);
+}
+
+.border-farm-dark-gray {
+  border-color: var(--farm-dark-gray);
+} 

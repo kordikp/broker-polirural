@@ -775,8 +775,8 @@ const AIBroker: React.FC = () => {
                         </Popup>
                       </Marker>
                       
-                      {mapMarkers.map((marker) => (
-                        <React.Fragment key={marker.id}>
+                      {mapMarkers.map((marker, index) => (
+                        <React.Fragment key={`${marker.id}-${index}`}>
                           <Marker 
                             position={[marker.location.lat, marker.location.lng]}
                             icon={getMarkerIcon(marker.type, (marker as any).country)}

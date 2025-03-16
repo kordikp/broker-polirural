@@ -233,10 +233,10 @@ const Index: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-farm-green text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-farm-green text-white" style={{backgroundColor: 'var(--farm-green)', color: 'white'}}>
+        <div className="container container-transparent mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
               Ready to Transform Your Agricultural Business?
             </h2>
             <p className="text-lg text-white/80 mb-8">
@@ -260,8 +260,8 @@ const Index: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-farm-dark-gray text-white py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <footer className="bg-farm-dark-gray text-white py-12" style={{backgroundColor: 'var(--farm-dark-gray)', color: 'white'}}>
+        <div className="container container-transparent mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-lg font-semibold mb-4">Farm2Market</h3>

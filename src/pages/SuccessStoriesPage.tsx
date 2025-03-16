@@ -60,7 +60,7 @@ const SuccessStoriesPage: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-12 mb-12">
         {stories.map((story) => (
-          <Card key={story.id} className="overflow-hidden">
+          <Card key={story.id} className="overflow-hidden bg-white">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-1 bg-farm-beige/20 p-6 flex flex-col justify-between">
                 <div>
@@ -191,26 +191,28 @@ const SuccessStoriesPage: React.FC = () => {
         ))}
       </div>
       
-      <div className="bg-farm-green text-white rounded-xl p-8 text-center">
-        <h2 className="text-2xl font-bold mb-4">Create Your Own Success Story</h2>
-        <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-          Join our platform today to connect with local farmers or buyers and start building 
-          sustainable partnerships that benefit your business and community.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-          <Button 
-            className="bg-white text-farm-green hover:bg-farm-beige"
-            onClick={() => navigate('/register')}
-          >
-            Join as Farmer
-          </Button>
-          <Button 
-            variant="outline" 
-            className="border-white text-white hover:bg-white/20"
-            onClick={() => navigate('/register')}
-          >
-            Register as Buyer
-          </Button>
+      <div className="bg-farm-green text-white rounded-xl p-8 text-center" style={{backgroundColor: 'var(--farm-green)', color: 'white'}}>
+        <div className="container-transparent">
+          <h2 className="text-2xl font-bold mb-4 text-white">Create Your Own Success Story</h2>
+          <p className="text-white/80 mb-6 max-w-2xl mx-auto">
+            Join our platform today to connect with local farmers or buyers and start building 
+            sustainable partnerships that benefit your business and community.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <Button 
+              className="bg-white text-farm-green hover:bg-farm-beige"
+              onClick={() => navigate('/register')}
+            >
+              Join as Farmer
+            </Button>
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:bg-white/20"
+              onClick={() => navigate('/register')}
+            >
+              Register as Buyer
+            </Button>
+          </div>
         </div>
       </div>
     </div>

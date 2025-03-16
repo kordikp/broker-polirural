@@ -5,6 +5,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/lib/AuthContext";
 
+// CSS imports - order matters!
+import "./reset.css"; // Reset CSS should be first
+import "./farm-colors.css"; // Then color definitions
+import "./main-styles.css"; // Then main styles
+import "./App.css"; // Then app-specific styles
+import "./index.css"; // Finally any index styles
+
 // Layout
 import Layout from "@/components/Layout";
 

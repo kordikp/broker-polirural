@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-farm-beige/20 sticky top-0 z-50">
+    <nav className="bg-white border-b border-farm-beige/20 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
             <div className="hidden md:ml-6 md:flex md:space-x-4">
               <Link
                 to="/marketplace"
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive("/marketplace")
                     ? "bg-farm-green text-white"
                     : "text-farm-dark-gray hover:bg-farm-green/10 hover:text-farm-green"
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
               </Link>
               <Link
                 to="/ai-broker"
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive("/ai-broker")
                     ? "bg-farm-brown text-white"
                     : "text-farm-dark-gray hover:bg-farm-brown/10 hover:text-farm-brown"
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
               </Link>
               <Link
                 to="/success-stories"
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive("/success-stories")
                     ? "bg-farm-green text-white"
                     : "text-farm-dark-gray hover:bg-farm-green/10 hover:text-farm-green"
