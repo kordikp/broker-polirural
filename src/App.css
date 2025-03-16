@@ -1,8 +1,45 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0;
+  text-align: left;
+}
+
+/* Important section background overrides */
+section.bg-farm-green {
+  background-color: #28514f !important;
+  color: white !important;
+}
+
+section.bg-farm-beige {
+  background-color: #F5F5DC !important;
+}
+
+/* Override for the footer - highest priority with !important */
+footer.bg-farm-dark-gray {
+  background-color: #333333 !important;
+  color: white !important;
+}
+
+footer.bg-farm-dark-gray h3,
+footer.bg-farm-dark-gray h3.text-white {
+  color: white !important;
+}
+
+footer.bg-farm-dark-gray p,
+footer.bg-farm-dark-gray a,
+footer.bg-farm-dark-gray span {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+footer.bg-farm-dark-gray a:hover {
+  color: white !important;
+}
+
+/* For container elements within sections that need background */
+.container-transparent {
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .logo {

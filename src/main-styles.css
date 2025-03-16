@@ -5,6 +5,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  background-color: #f5f7f9; /* Add a slight background color to avoid white-on-white issues */
 }
 
 .container {
@@ -41,13 +42,26 @@ header nav ul {
   gap: 1.5rem;
 }
 
+header nav ul li {
+  margin-right: 12px;
+}
+
 header nav a {
   color: white;
   text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 header nav a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+header nav a.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
 }
 
 /* Main content */
@@ -57,9 +71,18 @@ main {
 
 /* Footer */
 footer {
-  background-color: #f5f5f5;
   padding: 1rem 0;
   text-align: center;
+}
+
+footer.bg-farm-dark-gray {
+  background-color: #333333 !important;
+  color: white !important;
+}
+
+/* Make sure these styles don't override our specific footer */
+footer:not(.bg-farm-dark-gray) {
+  background-color: #f5f5f5;
   color: #666;
 }
 
@@ -122,4 +145,42 @@ footer {
 .price {
   font-weight: bold;
   color: #28514f;
+}
+
+/* Fix for white-on-white content */
+.card, .section, .content-box {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+
+/* Container override - only apply white background to standard containers, not sections with bg- classes */
+.container:not(.bg-farm-green):not(.bg-farm-dark-gray):not(.bg-farm-beige):not(.bg-farm-brown) {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+
+/* Background utilities that won't conflict with farm colors */
+.bg-white {
+  background-color: #fff !important;
+}
+
+.bg-light {
+  background-color: #f5f7f9 !important;
+}
+
+/* Ensure contrast for text on light backgrounds */
+.text-light {
+  color: #333 !important;
+}
+
+/* Section backgrounds */
+section.bg-farm-green {
+  background-color: #28514f !important;
+  color: white !important;
 } 
