@@ -1,0 +1,12 @@
+title: Farm2Market Documentation
+description: Documentation for the Farm2Market Broker Platform
+baseurl: "/broker-polirural/docs" # the subpath of your documentation site
+url: "https://kordikp.github.io" # the base hostname & protocol
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Jekyll settings
+markdown: kramdown
+permalink: pretty 

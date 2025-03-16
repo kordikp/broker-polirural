@@ -1,0 +1,23 @@
+title: Farm2Market Broker Platform - PoliRural
+description: Connecting farmers and buyers in rural areas
+baseurl: "/broker-polirural" # the subpath of your site
+url: "https://kordikp.github.io" # the base hostname & protocol
+theme: minima # using the minima theme for simplicity
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Jekyll settings
+markdown: kramdown
+permalink: pretty
+exclude:
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - README.md
+  - vite.config.ts
+  - tsconfig.json
+  - .github/
+  - dist/
+  - src/
+  - public/ # exclude the existing public directory 
