@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/broker-polirural/', // Base path for GitHub Pages
+  base: './', // Relative base path for better compatibility with Vercel
   server: {
     host: "::",
     port: 8080,
