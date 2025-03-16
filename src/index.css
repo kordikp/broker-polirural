@@ -137,3 +137,95 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
 }
+
+/* Additional custom styles */
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.hero-custom {
+  padding: 3rem 0;
+  background-color: hsl(var(--accent));
+  text-align: center;
+}
+
+.hero-custom h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-custom p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.button-custom {
+  display: inline-block;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.button-custom:hover {
+  opacity: 0.9;
+}
+
+.card-custom {
+  background-color: hsl(var(--card));
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-custom {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content-custom {
+  padding: 1.5rem;
+}
+
+.card-title-custom {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card-text-custom {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-custom h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-custom p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-custom h1 {
+    font-size: 1.75rem;
+  }
+}

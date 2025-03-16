@@ -2,7 +2,42 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Redirecting...</title>
+  <title>Page Not Found - Farm2Market Broker Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    p {
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+    a {
+      color: #28514f;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .button {
+      display: inline-block;
+      background-color: #28514f;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
   <script>
     // Single Page Apps for GitHub Pages
     // MIT License
@@ -12,14 +47,16 @@
     var l = window.location;
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/#/404' +
+      (l.search ? l.search : '')
     );
   </script>
 </head>
 <body>
-  Redirecting...
+  <div class="container">
+    <h1>Page Not Found</h1>
+    <p>The page you're looking for doesn't exist or has been moved.</p>
+    <p>You will be redirected to the home page shortly. If you are not redirected, <a href="/broker-polirural/" class="button">Click here</a>.</p>
+  </div>
 </body>
 </html> 

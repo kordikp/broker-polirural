@@ -25,5 +25,21 @@ export default defineConfig(({ mode }) => ({
     assetsDir: 'assets',
     emptyOutDir: true,
     sourcemap: false,
+    // Copy assets from public
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const name = assetInfo.name || '';
+          let extType = name.split('.').at(1) || '';
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = 'img';
+          } else if (/css/i.test(extType)) {
+            extType = 'css';
+          }
+          return `assets/${extType}/[name][extname]`;
+        },
+      },
+    },
   },
+  publicDir: 'public', // Ensure public directory is processed
 }));

@@ -13,6 +13,13 @@ permalink: pretty
 include:
   - _layouts
   - assets
+  - assets/css
+  - public
+  - public/assets
+  - public/assets/css
+sass:
+  sass_dir: assets/css
+  style: compressed
 exclude:
   - node_modules/
   - package.json

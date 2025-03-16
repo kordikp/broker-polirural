@@ -1,34 +1,42 @@
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farm2Market Broker Platform - PoliRural</title>
+    <meta name="description" content="Farm2Market Broker Platform for PoliRural - Connecting farmers and buyers in rural areas" />
+    <meta name="author" content="PoliRural" />
+    <meta property="og:image" content="./og-image.png" />
+    <meta name="build-version" content="1.0.1" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    
+    <!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    
+    <!-- Removed problematic redirect that was causing CSS loading issues -->
+  </head>
 
-<div class="hero">
-  <h2>Farm2Market Broker Platform</h2>
-  <p>Connecting local farmers with potential buyers in rural areas, with a focus on the Czech Republic, Bavaria, and surrounding regions.</p>
-  <a href="{{ '/marketplace' | relative_url }}" class="btn">Explore Marketplace</a>
-</div>
-
-<div class="features">
-  <div class="container">
-    <div class="feature">
-      <h3>AI Assistant</h3>
-      <p>Intelligent chat interface to help farmers and buyers navigate the platform</p>
-    </div>
-    
-    <div class="feature">
-      <h3>Interactive Map</h3>
-      <p>Visualize local farms and buyers in the Šumava region (Czech Republic, Germany, Austria)</p>
-    </div>
-    
-    <div class="feature">
-      <h3>Market Predictions</h3>
-      <p>AI-powered market trend analysis and price forecasting</p>
-    </div>
-    
-    <div class="feature">
-      <h3>Smart Matching</h3>
-      <p>Automated matching of farmers with potential buyers based on products and needs</p>
-    </div>
-  </div>
-</div> 
+  <body>
+    <div id="root"></div>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script type="module" src="./src/main.tsx"></script>
+  </body>
+</html> 

@@ -38,8 +38,8 @@ function App() {
                 <Route path="marketplace" element={<Marketplace />} />
                 <Route path="ai-broker" element={<AIBroker />} />
                 <Route path="success-stories" element={<SuccessStoriesPage />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
-              <Route path="*" element={<NotFound />} />
             </Routes>
           </HashRouter>
         </TooltipProvider>
