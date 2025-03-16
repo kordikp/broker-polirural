@@ -10,6 +10,9 @@ plugins:
 # Jekyll settings
 markdown: kramdown
 permalink: pretty
+include:
+  - _layouts
+  - assets
 exclude:
   - node_modules/
   - package.json
